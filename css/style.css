@@ -38,18 +38,31 @@ body {
 	width: 100px;
 	height: 100px;
 	border-radius: 5px;
-	background-color: #b80adbdc;
 	margin: 10px;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	background-color: rgb(116, 39, 11);
+	/* opacity: 0; */
+}
+
+.icon-hidden {
 	opacity: 0;
+}
+
+.icon-visible {
+	opacity: 100%;
+	background-color: #b80adbdc;
+}
+.card-visible {
+	background-color: #b80adbdc;
 }
 
 .show {
 	/* visibilità e opacità */
 	visibility: visible;
 	opacity: 100%;
+	background-color: #b80adbdc;
 }
 
 /* #griglia > div {

@@ -28,6 +28,8 @@ let arrayAnimali = [
 //https://html-css-js.com/html/character-codes/
 
 let arrayComparison = [];
+let arrayShuffle;
+let iconsFind = [];
 
 document.body.onload = startGame();
 
@@ -67,34 +69,29 @@ function removeActiveClass() {
 // chiama la funzione timer e associa a tutti gli elementi (div) di classe icon l'evento click e le due funzioni definit sotto
 
 function startGame() {
-	// timerElement.textContent = "Tempo: 0 min 0 sec";
+	if (iconsFind.length === 24) {
+		for (let i = 0; i < iconsFind.length; i++) {
+			arrayShuffle.pop();
+		}
+	}
 
-	let arrayShuffle = shuffle(arrayAnimali);
+	console.log(arrayShuffle);
+	// let card = document.querySelectorAll(".card");
+	let card = document.querySelectorAll(".icon-grid .icon-hidden");
+	console.log(card);
+
+	arrayShuffle = shuffle(arrayAnimali);
 
 	for (let i = 0; i < arrayShuffle.length; i++) {
-		document.querySelector(
-			".icon-grid"
-		).innerHTML += `<div class="card" onclick="displayIcon(${i})">${arrayShuffle[i]}</div>`;
+		card[i].innerHTML += `${arrayShuffle[i]}`;
 	}
 
 	// arrayShuffle = [];
 }
 
 function displayIcon(cardIndex) {
-	// var icon = document.getElementsByClassName("icon");
-	// var icons = [...icon];
-	let card = document.querySelectorAll(".card");
-
-	/*
-    var icon = document.getElementsByClassName("icon");
-    var icons = [...icon];
-    è uguale a 
-    var icons = document.getElementsByClassName("icon");
-    //var icons = [...icon];
-    è un operatore che serve per passare un array come argomento:
-    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax 
-    https://www.tutorialspoint.com/es6/es6_operators.htm (cerca spread nella pagina)
-    */
+	// let card = document.querySelectorAll(".card");
+	let card = document.querySelectorAll(".icon-grid .icon-hidden");
 
 	//mette/toglie la classe show
 	card[cardIndex].classList.toggle("show");
@@ -104,14 +101,19 @@ function displayIcon(cardIndex) {
 	// let iconsFind = arrayComparison.push(card[cardIndex]);
 
 	let len = arrayComparison.length;
+
 	//se nel confronto ci sono due elementi
 	if (len === 2) {
 		//se sono uguali aggiunge la classe find
 		if (arrayComparison[0].innerHTML === arrayComparison[1].innerHTML) {
 			arrayComparison[0].classList.add("find", "disabled");
 			arrayComparison[1].classList.add("find", "disabled");
+
+			// iconsFind++;
+			iconsFind.push(arrayComparison[0]);
+			iconsFind.push(arrayComparison[1]);
+			console.log(iconsFind);
 			arrayComparison = [];
-			// iconsFind = [];
 		} else {
 			//altrimenti (ha sbagliato) aggiunge solo la classe disabled
 
@@ -123,8 +125,8 @@ function displayIcon(cardIndex) {
 			setTimeout(function () {
 				arrayComparison[0].classList.remove("show", "disabled");
 				arrayComparison[1].classList.remove("show", "disabled");
-				console.log(arrayComparison);
-				console.log(card);
+				// console.log(arrayComparison);
+				// console.log(card);
 
 				let cardsDisabled = document.querySelectorAll(".card.disabled");
 				for (let i = 0; i < cardsDisabled.length; i++) {
@@ -134,10 +136,26 @@ function displayIcon(cardIndex) {
 			}, 700);
 		}
 	}
+
+	if (iconsFind.length === arrayAnimali.length) {
+		modalElement.classList.add("active");
+	}
 }
 
 //una funzione che viene mostrata alla fine quando sono tutte le risposte esatte
 
 // una funzione che nasconde la modale alla fine e riavvia il gioco
 
+function playAgain() {
+	modalElement.classList.remove("active");
+	startGame();
+}
 // una funzione che calcola il tempo e aggiorna il contenitore sotto
+
+function debuggerFinish() {
+	let card = document.querySelectorAll(".icon-grid .icon-hidden");
+	for (let i = 0; i < arrayAnimali.length; i++) {
+		card[i].classList.add("show");
+		card[i].classList.add("find");
+	}
+}
