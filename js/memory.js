@@ -152,8 +152,10 @@ let minutes = 0;
 
 function playAgain() {
 	modalElement.classList.remove("active");
-	seconds = 0;
-	minutes = 0;
+
+	let seconds = 0;
+	let minutes = 0;
+
 	startGame();
 }
 // una funzione che calcola il tempo e aggiorna il contenitore sotto
