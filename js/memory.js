@@ -86,7 +86,7 @@ function startGame() {
 		card[i].innerHTML += `${arrayShuffle[i]}`;
 	}
 
-	// arrayShuffle = [];
+	timerGame();
 }
 
 function displayIcon(cardIndex) {
@@ -139,18 +139,41 @@ function displayIcon(cardIndex) {
 
 	if (iconsFind.length === arrayAnimali.length) {
 		modalElement.classList.add("active");
+		document.getElementById("tempoTrascorso").innerHTML =
+			timerElement.innerHTML;
 	}
 }
 
 //una funzione che viene mostrata alla fine quando sono tutte le risposte esatte
 
 // una funzione che nasconde la modale alla fine e riavvia il gioco
+let seconds = 0;
+let minutes = 0;
 
 function playAgain() {
 	modalElement.classList.remove("active");
+	seconds = 0;
+	minutes = 0;
 	startGame();
 }
 // una funzione che calcola il tempo e aggiorna il contenitore sotto
+
+function timerGame() {
+	setInterval(() => {
+		seconds++;
+
+		if (seconds === 60) {
+			seconds = 0;
+		}
+		timerElement.innerHTML = `Tempo : ${minutes} min ${seconds} sec`;
+	}, 1000);
+
+	setInterval(() => {
+		minutes++;
+
+		timerElement.innerHTML = `Tempo : ${minutes} min ${seconds} sec`;
+	}, 60000);
+}
 
 function debuggerFinish() {
 	let card = document.querySelectorAll(".icon-grid .icon-hidden");
