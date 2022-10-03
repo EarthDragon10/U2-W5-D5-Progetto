@@ -83,7 +83,7 @@ function startGame() {
 	arrayShuffle = shuffle(arrayAnimali);
 
 	for (let i = 0; i < arrayShuffle.length; i++) {
-		card[i].innerHTML += `${arrayShuffle[i]}`;
+		card[i].innerHTML = `${arrayShuffle[i]}`;
 	}
 
 	timerGame();
